@@ -1,3 +1,5 @@
+<!-- Piotr Bacior 63899 -->
+<!-- aplikacja webowa na .NET 8 -->
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>

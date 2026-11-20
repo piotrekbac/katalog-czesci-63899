@@ -1,8 +1,13 @@
+// Piotr Bacior 63899
+// Testy adresow HTTP
+// Aplikacja wstaje w pamieci, przegladarka i port 5115 nie sa potrzebne
+
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace BikePartsApi.Tests;
 
+// fabryka buduje aplikacje raz dla calej klasy
 public class ApiTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient _client;
@@ -12,6 +17,7 @@ public class ApiTests : IClassFixture<WebApplicationFactory<Program>>
         _client = factory.CreateClient();
     }
 
+    // strona glowna ma oddac 200 i numer indeksu
     [Fact]
     public async Task StronaGlowna_ZawieraNumerIndeksu()
     {
@@ -22,6 +28,7 @@ public class ApiTests : IClassFixture<WebApplicationFactory<Program>>
         Assert.Contains("63899", body);
     }
 
+    // /products ma oddac 200 i nazwe czesci z katalogu
     [Fact]
     public async Task Products_ZawieraNazweCzesci()
     {
@@ -32,6 +39,7 @@ public class ApiTests : IClassFixture<WebApplicationFactory<Program>>
         Assert.Contains("Shimano", body);
     }
 
+    // takiego id nie ma, oczekuje 404
     [Fact]
     public async Task NieznanaCzesc_Zwraca404()
     {
