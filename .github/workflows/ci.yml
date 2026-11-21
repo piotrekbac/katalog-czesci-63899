@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Build i testy
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore BikeParts.sln
+
+      - name: Build
+        run: dotnet build BikeParts.sln -c Release --no-restore
+
+      - name: Testy
+        run: dotnet test BikeParts.sln -c Release --no-build --logger "trx;LogFileName=wyniki.trx" --results-directory TestResults
+
+      - name: Podsumowanie raportu
+        if: always()
+        run: |
+          echo "## Raport testow" >> "$GITHUB_STEP_SUMMARY"
+          echo "Szczegoly sa w logu kroku Testy i w artefakcie raport-testow (plik wyniki.trx)." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Wrzuc raport
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: raport-testow
+          path: TestResults
+
+  quality-gate:
+    name: Quality gate
+    runs-on: ubuntu-24.04
+    needs: [test]
+    if: always()
+    steps:
+      - name: Ocena
+        env:
+          TEST_RESULT: ${{ needs.test.result }}
+        run: |
+          echo "Wynik joba test: $TEST_RESULT"
+          if [ "$TEST_RESULT" != "success" ]; then
+            echo "Quality gate odrzuca zmiane."
+            exit 1
+          fi
+          echo "Quality gate akceptuje zmiane."
