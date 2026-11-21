@@ -25,7 +25,7 @@ public class ApiTests : IClassFixture<WebApplicationFactory<Program>>
         var body = await response.Content.ReadAsStringAsync();
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        Assert.Contains("00000", body);
+        Assert.Contains("63899", body);
     }
 
     // /products ma oddac 200 i nazwe czesci z katalogu
