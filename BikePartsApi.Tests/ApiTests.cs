@@ -1,67 +1,67 @@
 // Moje dane: Piotr Bacior 63899
 // Testy adresow HTTP
-// Aplikacja wstaje w pami?ci, przegl?darka i port 5115 nie s? nam potrzebne
+// Aplikacja wstaje w pami臋ci, przegl膮darka i port 5115 nie s膮 nam potrzebne
 
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace BikePartsApi.Tests;
 
-// Klasa ApiTests implementuje interfejs IClassFixture<WebApplicationFactory<Program>>, co pozwala na uruchomienie aplikacji w pami?ci podczas test體
+// Klasa ApiTests implementuje interfejs IClassFixture<WebApplicationFactory<Program>>, co pozwala na uruchomienie aplikacji w pami臋ci podczas test贸w
 public class ApiTests : IClassFixture<WebApplicationFactory<Program>>
 {
-    // Definiujemy prywatne pole _client typu HttpClient, kt髍e b?dzie u?ywane do wysy?ania ??da? HTTP do aplikacji w pami?ci
+    // Definiujemy prywatne pole _client typu HttpClient, kt贸re b臋dzie u偶ywane do wysy艂ania 偶膮da艅 HTTP do aplikacji w pami臋ci
     private readonly HttpClient _client;
 
-    // Definiujemy konstruktor klasy ApiTests, kt髍y przyjmuje obiekt WebApplicationFactory<Program> jako parametr.
-    // W konstruktorze tworzymy klienta HTTP (_client) za pomoc? metody CreateClient() z fabryki aplikacji
+    // Definiujemy konstruktor klasy ApiTests, kt贸ry przyjmuje obiekt WebApplicationFactory<Program> jako parametr.
+    // W konstruktorze tworzymy klienta HTTP (_client) za pomoc膮 metody CreateClient() z fabryki aplikacji
     public ApiTests(WebApplicationFactory<Program> factory)
     {
         _client = factory.CreateClient();
     }
 
-    // Test metody StronaGlowna_ZawieraNumerIndeksu sprawdza, czy strona g?體na ("/") zwraca kod statusu 200 (OK) i zawiera numer indeksu "63899" w tre?ci odpowiedzi
+    // Test metody StronaGlowna_ZawieraNumerIndeksu sprawdza, czy strona g艂贸wna ("/") zwraca kod statusu 200 (OK) i zawiera numer indeksu "63899" w tre艣ci odpowiedzi
     [Fact]
     public async Task StronaGlowna_ZawieraNumerIndeksu()
     {
-        // Wysy?amy ??danie GET do adresu "/" i oczekujemy odpowiedzi
+        // Wysy艂amy 偶膮danie GET do adresu "/" i oczekujemy odpowiedzi
         var response = await _client.GetAsync("/");
 
-        // Odczytujemy tre?? odpowiedzi jako string
+        // Odczytujemy tre艣膰 odpowiedzi jako string
         var body = await response.Content.ReadAsStringAsync();
 
-        // Sprawdzamy, czy kod statusu odpowiedzi jest r體ny 200 (OK)
+        // Sprawdzamy, czy kod statusu odpowiedzi jest r贸wny 200 (OK)
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-        // Sprawdzamy, czy tre?? odpowiedzi zawiera numer indeksu "63899"
+        // Sprawdzamy, czy tre艣膰 odpowiedzi zawiera numer indeksu "63899"
         Assert.Contains("63899", body);
     }
 
-    // Test metody Products_ZawieraNazweCzesci sprawdza, czy endpoint "/products" zwraca kod statusu 200 (OK) i zawiera nazw? cz??ci "Shimano" w tre?ci odpowiedzi
+    // Test metody Products_ZawieraNazweCzesci sprawdza, czy endpoint "/products" zwraca kod statusu 200 (OK) i zawiera nazw臋 cz臋艣ci "Shimano" w tre艣ci odpowiedzi
     [Fact]
     public async Task Products_ZawieraNazweCzesci()
     {
-        // Wysy?amy ??danie GET do adresu "/products" i oczekujemy odpowiedzi
+        // Wysy艂amy 偶膮danie GET do adresu "/products" i oczekujemy odpowiedzi
         var response = await _client.GetAsync("/products");
 
-        // Odczytujemy tre?? odpowiedzi jako string
+        // Odczytujemy tre艣膰 odpowiedzi jako string
         var body = await response.Content.ReadAsStringAsync();
 
-        // Sprawdzamy, czy kod statusu odpowiedzi jest r體ny 200 (OK)
+        // Sprawdzamy, czy kod statusu odpowiedzi jest r贸wny 200 (OK)
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-        // Sprawdzamy, czy tre?? odpowiedzi zawiera nazw? cz??ci "Shimano"
+        // Sprawdzamy, czy tre艣膰 odpowiedzi zawiera nazw臋 cz臋艣ci "Shimano"
         Assert.Contains("Shimano", body);
     }
 
-    // Test metody NieznanaCzesc_Zwraca404 sprawdza, czy pr骲a pobrania nieistniej?cej cz??ci ("/products/999") zwraca kod statusu 404 (Not Found)
+    // Test metody NieznanaCzesc_Zwraca404 sprawdza, czy pr贸ba pobrania nieistniej膮cej cz臋艣ci ("/products/999") zwraca kod statusu 404 (Not Found)
     [Fact]
     public async Task NieznanaCzesc_Zwraca404()
     {
-        // Wysy?amy ??danie GET do adresu "/products/999" i oczekujemy odpowiedzi
+        // Wysy艂amy 偶膮danie GET do adresu "/products/999" i oczekujemy odpowiedzi
         var response = await _client.GetAsync("/products/999");
 
-        // Sprawdzamy, czy kod statusu odpowiedzi jest r體ny 404 (Not Found)
+        // Sprawdzamy, czy kod statusu odpowiedzi jest r贸wny 404 (Not Found)
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 }

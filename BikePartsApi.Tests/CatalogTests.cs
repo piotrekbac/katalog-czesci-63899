@@ -1,46 +1,46 @@
 // Moje dane: Piotr Bacior 63899
-// Testy samego katalogu, bez odpalania strony - sekcja test體 jednostkowych
+// Testy samego katalogu, bez odpalania strony - sekcja test贸w jednostkowych
 
 namespace BikePartsApi.Tests;
 
-// Klasa CatalogTests zawiera testy jednostkowe dla klasy Catalog, kt髍a przechowuje informacje o produktach rowerowych. Testy sprawdzaj? poprawno?? dzia?ania metod i w?a?ciwo?ci klasy Catalog
+// Klasa CatalogTests zawiera testy jednostkowe dla klasy Catalog, kt贸ra przechowuje informacje o produktach rowerowych. Testy sprawdzaj膮 poprawno艣膰 dzia艂ania metod i w艂a艣ciwo艣ci klasy Catalog
 public class CatalogTests
 {
-    // Test metody Katalog_MaCoNajmniejDwieCzesci sprawdza, czy katalog produkt體 zawiera co najmniej dwie cz??ci. W tym przypadku oczekujemy, ?e liczba produkt體 w katalogu b?dzie wi?ksza lub r體na 2
+    // Test metody Katalog_MaCoNajmniejDwieCzesci sprawdza, czy katalog produkt贸w zawiera co najmniej dwie cz臋艣ci. W tym przypadku oczekujemy, 偶e liczba produkt贸w w katalogu b臋dzie wi臋ksza lub r贸wna 2
     [Fact]
     public void Katalog_MaCoNajmniejDwieCzesci()
     {
-        // Sprawdzamy, czy liczba produkt體 w katalogu jest wi?ksza lub r體na 2
+        // Sprawdzamy, czy liczba produkt贸w w katalogu jest wi臋ksza lub r贸wna 2
         Assert.True(Catalog.Products.Count >= 2);
     }
 
     // Test metody Find_ZwracaCzescOPodanymId sprawdza, czy metoda Find zwraca poprawny produkt dla podanego identyfikatora (ID).
-    // W tym przypadku oczekujemy, ?e produkt o ID 1 istnieje w katalogu i zawiera nazw? "Shimano"
+    // W tym przypadku oczekujemy, 偶e produkt o ID 1 istnieje w katalogu i zawiera nazw臋 "Shimano"
     [Fact]
     public void Find_ZwracaCzescOPodanymId()
     {
-        // Wywo?ujemy metod? Find z identyfikatorem 1, aby znale?? produkt o tym ID w katalogu
+        // Wywo艂ujemy metod臋 Find z identyfikatorem 1, aby znale藕膰 produkt o tym ID w katalogu
         var product = Catalog.Find(1);
 
-        // Sprawdzamy, czy produkt nie jest nullem (czy zosta? znaleziony)
+        // Sprawdzamy, czy produkt nie jest nullem (czy zosta艂 znaleziony)
         Assert.NotNull(product);
 
-        // Sprawdzamy, czy ID znalezionego produktu jest r體ne 1.
-        // Wykrzyknik po product jest dla kompilatora: po NotNull wiadomo, ?e warto?? istnieje
+        // Sprawdzamy, czy ID znalezionego produktu jest r贸wne 1.
+        // Wykrzyknik po product jest dla kompilatora: po NotNull wiadomo, 偶e warto艣膰 istnieje
         Assert.Equal(1, product!.Id);
 
-        // Sprawdzamy, czy nazwa znalezionego produktu zawiera s?owo "Shimano"
+        // Sprawdzamy, czy nazwa znalezionego produktu zawiera s艂owo "Shimano"
         Assert.Contains("Shimano", product.Name);
     }
 
-    // Test metody Find_NieznaneIdZwracaNull sprawdza, czy metoda Find zwraca null dla nieistniej?cego identyfikatora (ID)
+    // Test metody Find_NieznaneIdZwracaNull sprawdza, czy metoda Find zwraca null dla nieistniej膮cego identyfikatora (ID)
     [Fact]
     public void Find_NieznaneIdZwracaNull()
     {
-        // Wywo?ujemy metod? Find z nieistniej?cym identyfikatorem 999, aby sprawdzi?, czy metoda zwraca null
+        // Wywo艂ujemy metod臋 Find z nieistniej膮cym identyfikatorem 999, aby sprawdzi膰, czy metoda zwraca null
         var product = Catalog.Find(999);
 
-        // Sprawdzamy, czy produkt jest nullem (czy nie zosta? znaleziony)
+        // Sprawdzamy, czy produkt jest nullem (czy nie zosta艂 znaleziony)
         Assert.Null(product);
     }
 }

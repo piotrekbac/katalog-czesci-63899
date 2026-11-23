@@ -1,11 +1,11 @@
 // Student: Piotr Bacior 63899
-// W tym pliku mamy list? cz??ci, z kt髍ej korzysta strona i adres /products
+// W tym pliku mamy list臋 cz臋艣ci, z kt贸rej korzysta strona i adres /products
 // Nie ma bazy, po restarcie wraca ta sama czworka
 
-// Publiczny rekord Product reprezentuje cz??? rowerow? z w?a?ciwo?ciami Id, Name, Category i Price. W?a?ciwo?ci s? inicjalizowane w konstruktorze rekordu
+// Publiczny rekord Product reprezentuje cz臋艣膰 rowerow膮 z w艂a艣ciwo艣ciami Id, Name, Category i Price. W艂a艣ciwo艣ci s膮 inicjalizowane w konstruktorze rekordu
 public record Product(int Id, string Name, string Category, decimal Price);
 
-// Publiczna klasa Catalog przechowuje informacje o dost?pnych cz??ciach rowerowych w formie listy produkt體. Klasa zawiera w?a?ciwo?? Products, kt髍a jest list? tylko do odczytu (IReadOnlyList<Product>) i metod? Find, kt髍a pozwala na wyszukiwanie produkt體 po identyfikatorze (ID). Je?li produkt o podanym ID nie zostanie znaleziony, metoda Find zwraca null
+// Publiczna klasa Catalog przechowuje informacje o dost臋pnych cz臋艣ciach rowerowych w formie listy produkt贸w. Klasa zawiera w艂a艣ciwo艣膰 Products, kt贸ra jest list膮 tylko do odczytu (IReadOnlyList<Product>) i metod臋 Find, kt贸ra pozwala na wyszukiwanie produkt贸w po identyfikatorze (ID). Je艣li produkt o podanym ID nie zostanie znaleziony, metoda Find zwraca null
 public static class Catalog
 {
     // cztery czesci na sztywno, ta sama kolekcja idzie do HTML i do JSON
@@ -17,8 +17,8 @@ public static class Catalog
         new(4, "Przerzutka tylna Shimano Altus", "Naped", 129.00m)
     };
 
-    // Definiujemy metod? Find, kt髍a przyjmuje identyfikator (ID) jako parametr i zwraca produkt o podanym ID lub null, je?li produkt nie zostanie znaleziony.
-    // Metoda iteruje po li?cie produkt體 i por體nuje ID ka?dego produktu z podanym ID. Je?li znajdzie dopasowanie, zwraca produkt; w przeciwnym razie zwraca null
+    // Definiujemy metod臋 Find, kt贸ra przyjmuje identyfikator (ID) jako parametr i zwraca produkt o podanym ID lub null, je艣li produkt nie zostanie znaleziony.
+    // Metoda iteruje po li艣cie produkt贸w i por贸wnuje ID ka偶dego produktu z podanym ID. Je艣li znajdzie dopasowanie, zwraca produkt; w przeciwnym razie zwraca null
     public static Product? Find(int id)
     {
         foreach (var product in Products)

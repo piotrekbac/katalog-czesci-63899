@@ -1,25 +1,25 @@
 // Student: Piotr Bacior 63899
 // Mamy trzy adresy: /, /products i /products/{id}
-// Dane bierzemy z Catalog, aby nie trzyma? drugiej listy
+// Dane bierzemy z Catalog, aby nie trzyma膰 drugiej listy
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 /*
- Wy?wietlamy stron? g?體n? z list? cz??ci rowerowych w formacie HTML.
- Ka?da cz??? jest reprezentowana jako element <li> zawieraj?cy nazw?, cen? i kategori?.
- Dodatkowo, na stronie znajduje si? link do danych w formacie JSON pod adresem /products
+ Wy艣wietlamy stron臋 g艂贸wn膮 z list膮 cz臋艣ci rowerowych w formacie HTML.
+ Ka偶da cz臋艣膰 jest reprezentowana jako element <li> zawieraj膮cy nazw臋, cen臋 i kategori臋.
+ Dodatkowo, na stronie znajduje si臋 link do danych w formacie JSON pod adresem /products
 */
 app.MapGet("/", () =>
 {
-    // Generujemy list? element體 <li> dla ka?dej cz??ci rowerowej w katalogu. Ka?dy element zawiera nazw?, cen? i kategori? cz??ci
+    // Generujemy list臋 element贸w <li> dla ka偶dej cz臋艣ci rowerowej w katalogu. Ka偶dy element zawiera nazw臋, cen臋 i kategori臋 cz臋艣ci
     var items = "";
     foreach (var part in Catalog.Products)
     {
         items += $"<li>{part.Name} - {part.Price:0.00} zl ({part.Category})</li>";
     }
 
-    // Wstawiamy wygenerowane elementy <li> do szablonu HTML, kt髍y zawiera nag?體ek, numer indeksu oraz link do danych JSON
+    // Wstawiamy wygenerowane elementy <li> do szablonu HTML, kt贸ry zawiera nag艂贸wek, numer indeksu oraz link do danych JSON
     var html = $"""
         <!DOCTYPE html>
         <html lang="pl">
@@ -36,21 +36,21 @@ app.MapGet("/", () =>
         </html>
         """;
 
-    // Zwracamy wygenerowany kod HTML jako odpowied? z nag?體kiem Content-Type ustawionym na "text/html; charset=utf-8"
+    // Zwracamy wygenerowany kod HTML jako odpowied藕 z nag艂贸wkiem Content-Type ustawionym na "text/html; charset=utf-8"
     return Results.Content(html, "text/html; charset=utf-8");
 });
 
-// Zwracamy dane w formacie JSON dla wszystkich cz??ci rowerowych w katalogu. Endpoint /products zwraca list? produkt體 jako obiekt JSON
+// Zwracamy dane w formacie JSON dla wszystkich cz臋艣ci rowerowych w katalogu. Endpoint /products zwraca list臋 produkt贸w jako obiekt JSON
 app.MapGet("/products", () => Catalog.Products);
 
-// Zwracamy dane w formacie JSON dla konkretnej cz??ci rowerowej na podstawie jej identyfikatora (ID).
-// W adresie {id:int} oznacza, ?e id musi by? liczb?. Endpoint zwraca produkt o tym ID albo kod 404, je?li Find nic nie znajdzie
+// Zwracamy dane w formacie JSON dla konkretnej cz臋艣ci rowerowej na podstawie jej identyfikatora (ID).
+// W adresie {id:int} oznacza, 偶e id musi by膰 liczb膮. Endpoint zwraca produkt o tym ID albo kod 404, je艣li Find nic nie znajdzie
 app.MapGet("/products/{id:int}", (int id) =>
 {
-    // Wyszukujemy produkt w katalogu na podstawie podanego identyfikatora (ID) za pomoc? metody Find
+    // Wyszukujemy produkt w katalogu na podstawie podanego identyfikatora (ID) za pomoc膮 metody Find
     var product = Catalog.Find(id);
 
-    // Je?li produkt nie zostanie znaleziony, zwracamy kod statusu 404 (Not Found).
+    // Je艣li produkt nie zostanie znaleziony, zwracamy kod statusu 404 (Not Found).
     // W przeciwnym razie zwracamy produkt jako obiekt JSON z kodem statusu 200 (OK)
     return product is null ? Results.NotFound() : Results.Ok(product);
 });
@@ -58,6 +58,6 @@ app.MapGet("/products/{id:int}", (int id) =>
 // Start serwera, port lokalnie bierze sie z launchSettings (5115)
 app.Run();
 
-// Bez public testy w drugiej bibliotece nie widz? klasy startowej, dlatego jest publiczna.
-// W tym pliku klasa jest pusta. Uruchomienie aplikacji jest wy?ej, w kodzie przed app.Run
+// Bez public testy w drugiej bibliotece nie widz膮 klasy startowej, dlatego jest publiczna.
+// W tym pliku klasa jest pusta. Uruchomienie aplikacji jest wy偶ej, w kodzie przed app.Run
 public partial class Program { }
