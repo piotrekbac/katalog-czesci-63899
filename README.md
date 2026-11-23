@@ -1,11 +1,13 @@
 # Katalog części rowerowych
 
 Prosta aplikacja webowa z listą części do serwisu rowerowego.
+
 Autor: Piotr Bacior, indeks 63899.
 
 ## Uruchomienie
 
 Potrzebny jest .NET SDK 8.
+
     dotnet test
     dotnet run --project BikePartsApi
 
