@@ -1,0 +1,33 @@
+name: CD
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Publikacja na Azure
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Testy
+        run: dotnet test BikeParts.sln -c Release
+
+      - name: Publikacja
+        run: dotnet publish BikePartsApi/BikePartsApi.csproj -c Release -o publish
+
+      - name: Wdrozenie
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: app-bacior-63899
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: publish
